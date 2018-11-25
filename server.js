@@ -9,10 +9,10 @@ const graphqlHTTP = require('express-graphql');
 
 //app modules
 const schema = require('./Schema/schema');
-
+const database = require('./database');
 //init express
 const app = express();
-
+database();
 //init server
 const server = http.createServer(app);
 const port = normalizePort(process.env.PORT || '4567');
