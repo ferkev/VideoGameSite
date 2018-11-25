@@ -1,0 +1,3 @@
+[submodule "websiteclient"]
+	path = websiteclient
+	url = https://github.com/ferkev/ClientVideoGameSite.git
