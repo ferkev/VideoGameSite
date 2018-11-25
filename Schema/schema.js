@@ -69,8 +69,9 @@ const RootQuery = new GraphQLObjectType({
     },
     customers: {
       type: new GraphQLList(CustomerType),
-      resolve(parent, args){
-        return customers.find()
+      async resolve(parent, args){
+        let list = await customers.find()
+        return list
       }
     },
   }
