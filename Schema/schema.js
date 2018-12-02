@@ -7,22 +7,11 @@ const {
   GraphQLBoolean, 
   GraphQLList, 
   GraphQLNonNull } = require('graphql');
+
 const bcrypt = require('bcrypt');
 //models
 const customers = require('../models/Customer');
-
-const CustomerType = new GraphQLObjectType({
-  name: "Customer",
-  fields: () => ({
-    id: { type: GraphQLID },
-    firstName: { type: GraphQLString },
-    lastName: { type: GraphQLString },
-    age: { type: GraphQLInt },
-    email: { type: GraphQLString },
-    password: { type: GraphQLString }
-  })
-})
-
+const CustomerType = require('./Type/CustomerType');
 
 //Mutation
 const Mutation = new GraphQLObjectType({
