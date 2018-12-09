@@ -6,13 +6,15 @@ const http = require('http');
 
 //npm modules
 const graphqlHTTP = require('express-graphql');
-
+const cors = require('cors')
 //app modules
 const schema = require('./Schema/schema');
 const database = require('./database');
+
 //init express
 const app = express();
 database();
+app.use(cors());
 //init server
 const server = http.createServer(app);
 const port = normalizePort(process.env.PORT || '4567');

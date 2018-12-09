@@ -1,1 +1,47 @@
+/*** Header ***/
+header{
+  background-color: #4896EC;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+}
 
+header a{
+  padding: 15px;
+  text-align: center;
+  font-size: 1rem;
+  color: #fff;
+  text-transform: capitalize;
+  border-bottom: 3px solid #4896EC;
+}
+
+header a:hover{
+  background-color: rgba( 0, 0, 0, 0.2 );
+  border-color: rgb(211, 176, 122, 1.0);
+}
+
+header form{
+  grid-column: 3 / 4; 
+  text-align: right;
+}
+
+header form input{
+  width: 50%;
+  transition: 300ms;
+  font-size: 1rem;
+  border-radius: 5px;
+  background-color: #76B0F1;
+  color:#fff;
+  border: none;
+  padding: 0.5rem;
+}
+
+header input::placeholder{
+  color: rgba(223, 230, 233, 0.5);
+}
+
+header input:focus{
+  width: 90%;
+  transition: 300ms;
+}

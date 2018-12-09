@@ -39,6 +39,16 @@ const Mutation = new GraphQLObjectType({
           return customer.save() 
       }
     },
+    customer: {
+      type: CustomerType,
+      args: { email : { type: new GraphQLNonNull(GraphQLString) }, password: { type: new GraphQLNonNull(GraphQLString)} },
+      async resolve(parent, args){
+        let user = await customers.findOne({email: args.email})
+        let valid = await bcrypt.compare(args.password, user.password)
+        if(valid) return user
+        else throw new Error('Bad password');
+      }
+    }
   }
 })
 
@@ -46,16 +56,6 @@ const Mutation = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
-    customer: {
-      type: CustomerType,
-      args: { email : { type: GraphQLString }, password: { type: GraphQLString} },
-      async resolve(parent, args){
-        let user = await customers.findOne({email: args.email})
-        let valid = await bcrypt.compare(args.password, user.password)
-        if(valid) return user
-        else throw new Error('Bad password');
-      }
-    },
     customers: {
       type: new GraphQLList(CustomerType),
       async resolve(parent, args){

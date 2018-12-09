@@ -1,0 +1,11 @@
+input{
+  border-radius: 10px;
+}
+
+#validate{
+  background-color: rgb(2, 182, 2);
+}
+
+button{
+  border-radius: 10px;
+}
