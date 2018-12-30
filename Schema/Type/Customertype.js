@@ -16,7 +16,8 @@ const {
       lastName: { type: GraphQLString },
       age: { type: GraphQLInt },
       email: { type: GraphQLString },
-      password: { type: GraphQLString }
+      password: { type: GraphQLString },
+      token: { type: GraphQLString }
     })
   })
 

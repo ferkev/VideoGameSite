@@ -10,6 +10,7 @@ const customerSchema = new schema({
   age: { type: Number },
   email: { type: String },
   password: { type: String },
+  token: {type: String },
   created_at: {type: Date, default: Date.now }
 });
 

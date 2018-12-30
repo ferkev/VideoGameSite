@@ -6,8 +6,9 @@ const {
   GraphQLSchema,
   GraphQLBoolean, 
   GraphQLList, 
-  GraphQLNonNull } = require('graphql');
-
+  GraphQLNonNull,
+  GraphQLError } = require('graphql');
+const jsonwebtoken = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 //models
 const customers = require('../models/Customer');
@@ -33,7 +34,7 @@ const Mutation = new GraphQLObjectType({
             lastName: args.lastName,
             age: args.age,
             email: args.email,
-            password:  args.password
+            password:  args.password,
           });
 
           return customer.save() 
@@ -44,9 +45,26 @@ const Mutation = new GraphQLObjectType({
       args: { email : { type: new GraphQLNonNull(GraphQLString) }, password: { type: new GraphQLNonNull(GraphQLString)} },
       async resolve(parent, args){
         let user = await customers.findOne({email: args.email})
-        let valid = await bcrypt.compare(args.password, user.password)
-        if(valid) return user
-        else throw new Error('Bad password');
+
+        if (!user) {
+          throw new Error('Bad email')
+        }
+
+        let valid = await bcrypt.compare(args.password, user.password);
+
+        if(!valid) {
+
+          throw new Error('bad password')
+        }
+
+        if( valid ){
+
+          let token = jsonwebtoken.sign( user.toJSON(), 'secrectKey', { expiresIn: '1y' })
+
+          user.set('token', token)
+          return user
+        }
+        return user
       }
     }
   }

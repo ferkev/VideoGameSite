@@ -19,11 +19,25 @@ app.use(cors());
 const server = http.createServer(app);
 const port = normalizePort(process.env.PORT || '4567');
 
+
+let root = {
+  ip: function (args, request) {
+    return request.ip;
+  }
+};
+
 //initialisation de graphQl
 app.use('/graphql', graphqlHTTP({
   schema,
+  rootValue: root,
   pretty: true,
   graphiql: true,
+  formatError: error => ({
+    message: error.message,
+    locations: error.locations,
+    stack: error.stack ? error.stack.split('\n') : [],
+    path: error.path
+  })  
 }));
 
 app.set('port', port)
