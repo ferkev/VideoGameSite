@@ -1,5 +1,5 @@
 DS_store
-./websiteclient/*
+websiteclient
 # Logs
 logs
 *.log

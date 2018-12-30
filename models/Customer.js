@@ -34,12 +34,5 @@ customerSchema.pre('save', function(next) {
   });
 });
 
-customerSchema.methods.comparePassword = function(password, cb) {
-  bcrypt.compare(password, this.password, function(err, isMatch) {
-      if (err) return cb(err);
-      cb(null, isMatch);
-  });
-};
-
 // export du model
 module.exports = mongoose.model('customers', customerSchema);
